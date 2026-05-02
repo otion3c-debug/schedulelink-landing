@@ -129,7 +129,20 @@ export default function WidgetPage() {
               className="input h-20 font-mono text-xs"
             />
             <button
-              onClick={() => navigator.clipboard.writeText(embed.embed_code)}
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(embed.embed_code);
+                  alert('Copied!');
+                } catch {
+                  const input = document.createElement('textarea');
+                  input.value = embed.embed_code;
+                  document.body.appendChild(input);
+                  input.select();
+                  document.execCommand('copy');
+                  document.body.removeChild(input);
+                  alert('Copied!');
+                }
+              }}
               className="btn-secondary text-sm mt-2"
             >Copy</button>
           </div>
@@ -141,7 +154,20 @@ export default function WidgetPage() {
               className="input h-20 font-mono text-xs"
             />
             <button
-              onClick={() => navigator.clipboard.writeText(embed.iframe_code)}
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(embed.iframe_code);
+                  alert('Copied!');
+                } catch {
+                  const input = document.createElement('textarea');
+                  input.value = embed.iframe_code;
+                  document.body.appendChild(input);
+                  input.select();
+                  document.execCommand('copy');
+                  document.body.removeChild(input);
+                  alert('Copied!');
+                }
+              }}
               className="btn-secondary text-sm mt-2"
             >Copy</button>
           </div>
