@@ -35,7 +35,21 @@ export default function DashboardHome() {
       <div className="card p-4 mt-3 flex items-center justify-between">
         <code className="text-primary-600 text-sm">{bookingUrl}</code>
         <button
-          onClick={() => navigator.clipboard.writeText(bookingUrl)}
+          onClick={async () => {
+            try {
+              await navigator.clipboard.writeText(bookingUrl);
+              alert('Link copied!');
+            } catch {
+              // Fallback for browsers that block clipboard
+              const input = document.createElement('input');
+              input.value = bookingUrl;
+              document.body.appendChild(input);
+              input.select();
+              document.execCommand('copy');
+              document.body.removeChild(input);
+              alert('Link copied!');
+            }
+          }}
           className="btn-secondary text-sm"
         >Copy link</button>
       </div>
