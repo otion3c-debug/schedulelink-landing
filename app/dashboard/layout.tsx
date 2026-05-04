@@ -47,6 +47,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </Link>
               );
             })}
+            <hr className="my-3 border-gray-200" />
+            <a
+              href="mailto:support@schedulelink.tech"
+              className="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50"
+            >
+              Help & Support
+            </a>
           </nav>
           <main>{children}</main>
         </div>
