@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ScheduleLink — AI-powered scheduling for professionals",
+  title: "ScheduleLink — Scheduling for professionals",
   description:
     "Multi-calendar scheduling with embeddable booking widgets. Connect Google or Microsoft, share your link, get bookings.",
 };
