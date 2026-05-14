@@ -46,6 +46,24 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="max-w-6xl mx-auto px-6 py-16 bg-gray-50 rounded-2xl">
+          <h2 className="h2 text-center">What people are saying</h2>
+          <div className="mt-10 max-w-2xl mx-auto">
+            <div className="card p-8 text-center">
+              <svg className="w-8 h-8 mx-auto text-blue-500 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z"/>
+              </svg>
+              <p className="text-lg text-gray-700 italic leading-relaxed">
+                "Very impressed with ScheduleLink. The platform is clean, simple and makes scheduling meetings incredibly easy. Love how fast and professional the experience feels. Definitely a great tool for anyone wanting to save time and avoid back and forth emails."
+              </p>
+              <div className="mt-6">
+                <p className="font-semibold text-gray-900">Kareem P.</p>
+                <p className="text-sm text-gray-500">Entrepreneur — Buford, GA</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="max-w-6xl mx-auto px-6 py-16">
           <h2 className="h2 text-center">Simple pricing.</h2>
           <p className="mt-2 text-center text-gray-600">Start free. Upgrade when you outgrow it.</p>
