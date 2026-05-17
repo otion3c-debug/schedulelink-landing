@@ -1,6 +1,6 @@
 export const API_URL =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_URL) ||
-  "http://127.0.0.1:8765";
+  "https://api.schedulelink.tech";
 
 const TOKEN_KEY = "schedulelink_token";
 const REFRESH_KEY = "schedulelink_refresh";
