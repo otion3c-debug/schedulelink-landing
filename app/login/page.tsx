@@ -5,18 +5,30 @@ import Footer from "@/components/Footer";
 import { api } from "@/lib/api";
 
 export default function LoginPage() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<"google" | "microsoft" | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
   async function googleSignIn() {
-    setLoading(true);
+    setLoading("google");
     setErr(null);
     try {
       const data = await api<{ authorization_url: string }>("/auth/google/url");
       window.location.href = data.authorization_url;
     } catch (e: any) {
       setErr(e.message || "Could not start Google sign-in.");
-      setLoading(false);
+      setLoading(null);
+    }
+  }
+
+  async function microsoftSignIn() {
+    setLoading("microsoft");
+    setErr(null);
+    try {
+      const data = await api<{ authorization_url: string }>("/auth/microsoft/url");
+      window.location.href = data.authorization_url;
+    } catch (e: any) {
+      setErr(e.message || "Could not start Microsoft sign-in.");
+      setLoading(null);
     }
   }
 
@@ -26,12 +38,12 @@ export default function LoginPage() {
       <main className="max-w-md mx-auto px-6 py-20">
         <h1 className="h2 text-center">Sign in to ScheduleLink</h1>
         <p className="muted text-center mt-2">
-          Use your Google account. We&apos;ll create your booking page automatically.
+          Sign in with Google or Microsoft. We&apos;ll create your booking page automatically.
         </p>
         <div className="card p-6 mt-8 space-y-3">
           <button
             onClick={googleSignIn}
-            disabled={loading}
+            disabled={loading !== null}
             className="btn-secondary w-full justify-center gap-3 py-3 disabled:opacity-50"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden>
@@ -42,6 +54,27 @@ export default function LoginPage() {
             </svg>
             <span>Continue with Google</span>
           </button>
+
+          <div className="flex items-center gap-3">
+            <hr className="flex-1 border-gray-300" />
+            <span className="text-sm text-gray-400">or</span>
+            <hr className="flex-1 border-gray-300" />
+          </div>
+
+          <button
+            onClick={microsoftSignIn}
+            disabled={loading !== null}
+            className="btn-secondary w-full justify-center gap-3 py-3 disabled:opacity-50"
+          >
+            <svg width="18" height="18" viewBox="0 0 21 21" aria-hidden>
+              <rect x="1" y="1" width="9" height="9" fill="#F25022"/>
+              <rect x="11" y="1" width="9" height="9" fill="#7FBA00"/>
+              <rect x="1" y="11" width="9" height="9" fill="#00A4EF"/>
+              <rect x="11" y="11" width="9" height="9" fill="#FFB900"/>
+            </svg>
+            <span>Continue with Microsoft</span>
+          </button>
+
           {err && <div className="text-sm text-red-600">{err}</div>}
         </div>
         <p className="text-xs text-gray-500 text-center mt-6">
