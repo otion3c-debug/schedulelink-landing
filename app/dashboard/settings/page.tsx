@@ -72,6 +72,17 @@ export default function SettingsPage() {
     }
   }
 
+  async function connectMicrosoft() {
+    try {
+      const data = await api<{ authorization_url: string }>("/calendars/connect/microsoft", {
+        method: "POST",
+      });
+      window.location.href = data.authorization_url;
+    } catch (e: any) {
+      alert(e.message || "Could not start connection");
+    }
+  }
+
   async function setPrimary(id: string) {
     try {
       await api(`/calendars/${id}/set-primary`, { method: "POST" });
@@ -145,10 +156,13 @@ export default function SettingsPage() {
       </section>
 
       <section className="card p-4">
-        <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-lg">Calendars</h2>
-          <button onClick={connectGoogle} className="btn-primary text-sm">+ Connect Google</button>
-        </div>
+          <div className="flex items-center justify-between gap-2">
+            <h2 className="font-semibold text-lg">Calendars</h2>
+            <div className="flex gap-2">
+              <button onClick={connectGoogle} className="btn-primary text-sm">+ Connect Google</button>
+              <button onClick={connectMicrosoft} className="btn-secondary text-sm">+ Connect Outlook</button>
+            </div>
+          </div>
         {calendars.length === 0 ? (
           <p className="muted mt-3 text-sm">No calendars connected. Connect one to start taking bookings that write to your calendar.</p>
         ) : (
