@@ -160,7 +160,12 @@ export default function SettingsPage() {
             <h2 className="font-semibold text-lg">Calendars</h2>
             <div className="flex gap-2">
               <button onClick={connectGoogle} className="btn-primary text-sm">+ Connect Google</button>
-              <button onClick={connectMicrosoft} className="btn-secondary text-sm">+ Connect Outlook</button>
+              <button
+                onClick={connectMicrosoft}
+                className="inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium text-sm bg-white border border-gray-300 text-gray-800 hover:bg-gray-50 transition-colors"
+              >
+                + Connect Outlook
+              </button>
             </div>
           </div>
         {calendars.length === 0 ? (
