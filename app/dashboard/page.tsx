@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import { fetcher, API_URL } from "@/lib/api";
@@ -20,6 +21,7 @@ type BookingsResp = { bookings: any[]; total: number };
 export default function DashboardHome() {
   const { data: user } = useSWR<User>("/users/me", fetcher);
   const { data: bookings } = useSWR<BookingsResp>("/bookings?status=confirmed&limit=5", fetcher);
+  const [copied, setCopied] = useState(false);
 
   if (!user) return <div className="text-gray-500">Loading…</div>;
 
@@ -35,9 +37,13 @@ export default function DashboardHome() {
       <div className="card p-4 mt-3 flex items-center justify-between">
         <code className="text-primary-600 text-sm">{bookingUrl}</code>
         <button
-          onClick={() => navigator.clipboard.writeText(bookingUrl)}
+          onClick={() => {
+            navigator.clipboard.writeText(bookingUrl);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }}
           className="btn-secondary text-sm"
-        >Copy link</button>
+        >{copied ? "Copied!" : "Copy link"}</button>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4 mt-8">

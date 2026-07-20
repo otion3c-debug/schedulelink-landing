@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
+import Link from "next/link";
 
 type WidgetSettings = {
   primary_color: string;
@@ -23,18 +24,36 @@ export default function WidgetPage() {
   const [embed, setEmbed] = useState<EmbedInfo | null>(null);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<string | null>(null);
-  const [me, setMe] = useState<{ booking_slug: string } | null>(null);
+  const [me, setMe] = useState<{ booking_slug: string; subscription_tier: string } | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [tierError, setTierError] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const [s, e, u] = await Promise.all([
-        api<WidgetSettings>("/widget/settings"),
-        api<EmbedInfo>("/widget/embed-code"),
-        api<{ booking_slug: string }>("/users/me"),
-      ]);
-      setSettings(s);
-      setEmbed(e);
-      setMe(u);
+      setLoading(true);
+      try {
+        const u = await api<{ booking_slug: string; subscription_tier: string }>("/users/me");
+        setMe(u);
+
+        if (u.subscription_tier !== "pro_plus") {
+          setTierError(true);
+          setLoading(false);
+          return;
+        }
+
+        const [s, e] = await Promise.all([
+          api<WidgetSettings>("/widget/settings"),
+          api<EmbedInfo>("/widget/embed-code"),
+        ]);
+        setSettings(s);
+        setEmbed(e);
+      } catch (e: any) {
+        if (e?.status === 403) {
+          setTierError(true);
+        }
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
@@ -59,6 +78,24 @@ export default function WidgetPage() {
     } finally {
       setSaving(false);
     }
+  }
+
+  if (loading) return <div className="text-gray-500">Loading…</div>;
+
+  if (tierError) {
+    return (
+      <div className="max-w-lg mx-auto text-center py-12">
+        <div className="text-4xl mb-4">🔒</div>
+        <h1 className="h2">Widget — Pro+ Feature</h1>
+        <p className="muted mt-3">
+          The embeddable booking widget is available on the <strong>Pro+</strong> plan.
+          Upgrade to add a booking widget to your own website.
+        </p>
+        <Link href="/dashboard/billing" className="btn-primary inline-block mt-6">
+          Upgrade to Pro+
+        </Link>
+      </div>
+    );
   }
 
   if (!settings || !embed || !me) return <div className="text-gray-500">Loading…</div>;
