@@ -1,6 +1,4 @@
-export const API_URL =
-  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_URL) ||
-  "https://schedulelink-api.onrender.com";
+export const API_URL = "https://schedulelink-api.onrender.com";
 
 const TOKEN_KEY = "schedulelink_token";
 const REFRESH_KEY = "schedulelink_refresh";
