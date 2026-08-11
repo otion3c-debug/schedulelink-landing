@@ -3,12 +3,14 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { api } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState<"google" | "microsoft" | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
   async function googleSignIn() {
+    trackEvent("signin_google");
     setLoading("google");
     setErr(null);
     try {
@@ -21,6 +23,7 @@ export default function LoginPage() {
   }
 
   async function microsoftSignIn() {
+    trackEvent("signin_microsoft");
     setLoading("microsoft");
     setErr(null);
     try {

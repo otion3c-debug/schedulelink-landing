@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getToken, clearTokens } from "@/lib/api";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Header() {
   const [authed, setAuthed] = useState(false);
@@ -29,8 +30,8 @@ export default function Header() {
             </>
           ) : (
             <>
-              <Link href="/login" className="btn-secondary text-sm">Sign in</Link>
-              <Link href="/login" className="btn-primary text-sm">Get started</Link>
+              <Link href="/login" onClick={() => trackEvent("signin")} className="btn-secondary text-sm">Sign in</Link>
+              <Link href="/login" onClick={() => trackEvent("get_started")} className="btn-primary text-sm">Get started</Link>
             </>
           )}
         </div>

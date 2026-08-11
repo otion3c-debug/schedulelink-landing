@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import AnalyticsInit from "@/components/AnalyticsInit";
 
 export const metadata: Metadata = {
   title: "ScheduleLink — Scheduling for professionals",
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AnalyticsInit />
+        {children}
+      </body>
     </html>
   );
 }
