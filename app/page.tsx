@@ -2,7 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PricingCards from "@/components/PricingCards";
-import { trackEvent } from "@/lib/analytics";
+import TrackedLink from "@/components/TrackedLink";
 
 /* ---- SVG Icons ---- */
 
@@ -70,8 +70,8 @@ export default function HomePage() {
             pick a time that works — automatically. No back-and-forth emails. No double-bookings.
           </p>
           <div className="mt-7 flex items-center justify-center gap-3">
-            <Link href="/login" onClick={() => trackEvent("get_started")} className="btn-primary px-6 py-3 text-base shadow-lg shadow-primary-500/20">Get started — free</Link>
-            <Link href="/pricing" onClick={() => trackEvent("pricing")} className="btn-secondary px-6 py-3 text-base">See pricing</Link>
+            <TrackedLink event="get_started" href="/login" className="btn-primary px-6 py-3 text-base shadow-lg shadow-primary-500/20">Get started — free</TrackedLink>
+            <TrackedLink event="pricing" href="/pricing" className="btn-secondary px-6 py-3 text-base">See pricing</TrackedLink>
           </div>
           <p className="mt-2 text-sm text-gray-400">5 free bookings per month. No credit card required.</p>
 
@@ -249,8 +249,8 @@ export default function HomePage() {
           <h2 className="h2 relative">Ready to stop the back-and-forth?</h2>
           <p className="mt-4 text-lg text-gray-600">Setting up your booking page is quick, simple and free to start.</p>
           <div className="mt-8 flex items-center justify-center gap-3">
-            <Link href="/login" onClick={() => trackEvent("get_started")} className="btn-primary px-8 py-3 text-lg shadow-lg shadow-primary-500/20">Get started — free</Link>
-            <Link href="/pricing" onClick={() => trackEvent("pricing")} className="btn-secondary px-8 py-3 text-lg">See pricing</Link>
+            <TrackedLink event="get_started" href="/login" className="btn-primary px-8 py-3 text-lg shadow-lg shadow-primary-500/20">Get started — free</TrackedLink>
+            <TrackedLink event="pricing" href="/pricing" className="btn-secondary px-8 py-3 text-lg">See pricing</TrackedLink>
           </div>
           <p className="mt-3 text-sm text-gray-400">No credit card needed. Powered by Google & Stripe.</p>
         </section>
