@@ -13,6 +13,7 @@ interface BookingInfo {
   duration_minutes: number;
   timezone: string | null;
   status: string;
+  start_time_utc: string | null;
 }
 
 function formatWhen(iso: string, tz: string | null): string {
@@ -139,7 +140,7 @@ export default function BookingCancelPage({ params }: { params: Promise<{ id: st
           </h1>
           {booking && (
             <p className="text-sm text-gray-600 mt-2">
-              {formatWhen(booking.start_time, booking.timezone)} · {booking.duration_minutes} minutes
+              {formatWhen(booking.start_time_utc ?? booking.start_time, booking.timezone)} · {booking.duration_minutes} minutes
             </p>
           )}
 

@@ -16,6 +16,8 @@ interface BookingInfo {
   status: string;
   notes: string | null;
   created_at: string | null;
+  start_time_utc: string | null;
+  end_time_utc: string | null;
 }
 
 function formatWhen(iso: string, tz: string | null): string {
@@ -89,7 +91,7 @@ export default async function BookingConfirmationPage({
           <div className="mt-8 grid gap-2 text-sm">
             <div className="flex justify-between py-2 border-b border-gray-100">
               <span className="text-gray-500">When</span>
-              <span className="font-medium text-gray-900">{formatWhen(booking.start_time, booking.timezone)}</span>
+              <span className="font-medium text-gray-900">{formatWhen(booking.start_time_utc ?? booking.start_time, booking.timezone)}</span>
             </div>
             {booking.duration_minutes ? (
               <div className="flex justify-between py-2 border-b border-gray-100">
