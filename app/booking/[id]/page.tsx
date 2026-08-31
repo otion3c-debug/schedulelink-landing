@@ -3,6 +3,9 @@ import Footer from "@/components/Footer";
 import { api } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
+// Booking pages must never be cached: a rendered page would go stale when a
+// booking is later cancelled, rescheduled, or deleted. Always re-render on request.
+export const fetchCache = "force-no-store";
 
 interface BookingInfo {
   id: string;
